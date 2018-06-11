@@ -1,3 +1,17 @@
+> npm install
+
+编译
+> npm start
+
+本地服务
+
+> npm run server
+
+打包
+
+> npm run build
+
+
 ####  1.npm init 生成package.json
 (会有让你输入名称版本，各种信息，如果不想写直接回车就行)
 
