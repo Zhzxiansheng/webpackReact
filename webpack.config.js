@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
     output: { // 输出目录
         path:__dirname + "/public", //打包后的文件存放的地方
         filename:"bundle.js" //打包后输出的文件名，index.html 引入的就是这个
+        // filename: "bundle-[hash].js"
     },
     devServer:{
         contentBase: "./public", //本地服务器加载的页面所载的目录
@@ -50,13 +52,19 @@ module.exports = {
                     }
                 ]
 
+            },
+            {
+                // 处理less的
+                test: /\.less$/,
+                use: ExtractTextPlugin.extract(['css-loader', 'less-loader','postcss-loader'])
             }
            
         ]
     },
     plugins: [
         new webpack.BannerPlugin('版权所有，翻版必究'),
-        new webpack.HotModuleReplacementPlugin()//热加载插;
+        new webpack.HotModuleReplacementPlugin(),//热加载插;
+        new ExtractTextPlugin("style.css")
     ],
 }
 
@@ -106,11 +114,37 @@ module.exports = {
  /*
     npm install --save-dev postcss-loader autoprefixer
  */
+/*
+
+{
+    npm install --save-dev less-loader less
+                // 处理less的
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    }, {
+                        loader: "css-loader",
+                        options: {
+                            modules: true, //指定启用css modules
+                            localIdentName: '[name]__[local]--[hash:base64:5]' //指定css的类名格式
+                        }
+                    },
+                    {
+                        loader: "postcss-loader"
+                    },{
+                        loader:"less-loader"
+                    }
+                ]
+
+            }
+*/
 
  /*
     HtmlWebpackPlugin 插件
 
     npm install --save-dev html-webpack-plugin
+    
 
     作用；1.可以移除index.html 也就是说移除文件夹 public ；在app目录下，创建一个index.tmpl.html文件模板；这个模板和现在的index.html 一样。
     我感觉这个功能没啥用
@@ -124,4 +158,14 @@ module.exports = {
  npm install --save-dev babel-plugin-react-transform react-transform-hmr
 
  然后配置.babelrc文件
+ */
+
+ /*
+    css 单独打包 使用了一个插件
+
+    npm install --save-dev extract-text-webpack-plugin
+    如果使用的是webpack4x  那么要使用 命令： npm install extract-text-webpack-plugin@next --save-dev
+
+    在配置文件的plugins后引用它们
+    const ExtractTextPlugin = require('extract-text-webpack-plugin');
  */
