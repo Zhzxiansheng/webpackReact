@@ -2,18 +2,4 @@
 node_modules/*
 .idea
 
-# 忽略所有js与css，除去框架的js与css
-*.xml
-*.iml
-*.map
-*.js
-*.html
-*.css
-*.html
-*.js.map
 .DS_Store
-!public/use/*/*.js
-public/use/script/baidu*js
-
-＃ 忽略package-lock.json
-package-lock.json
