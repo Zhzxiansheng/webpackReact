@@ -2,6 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import Greeter from "./Greeter";
 
-import './css/main.css'; //使用require 导入css文件
+import './css/reset.less'
+
 
 render(<Greeter />,document.querySelector("#app"));
