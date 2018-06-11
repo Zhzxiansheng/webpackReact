@@ -1,4 +1,7 @@
 # 忽略模块
 node_modules/*
 .idea
+
+.DS_Store
+
 yarn.lock

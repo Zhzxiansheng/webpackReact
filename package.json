@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack --mode development",
     "server": "webpack-dev-server --open",
-    "build": "production webpack --config ./webpack.production.config.js --progress"
+    "build": "set NODE_ENV=production && webpack --config ./webpack.production.config.js --progress"
   },
   "author": "zhanghaozhuang",
   "license": "ISC",
