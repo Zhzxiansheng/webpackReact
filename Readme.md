@@ -30,9 +30,12 @@ webpack -v 查看安装版本
 
 #### 支持
 react 
-sass sass loader
-less less loadder
-stylus  stylus loader
+
+sass
+sass
+loader
+less less-loadder
+stylus  stylus-loader
 es6
 postcss-loader  autoprefixer(自动补全CSS前缀)
 style-loader
