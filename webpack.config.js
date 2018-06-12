@@ -31,7 +31,7 @@ module.exports = {
                 },
                 // exclude: /node_modules/,
                 // query: {
-                //     presets: ['es2015']
+                //     compact: false
                 // }
             },
             {
