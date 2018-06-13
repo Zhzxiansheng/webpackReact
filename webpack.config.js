@@ -57,6 +57,14 @@ module.exports = {
                 // 处理less的
                 test: /\.less$/,
                 use: ExtractTextPlugin.extract(['css-loader', 'less-loader','postcss-loader'])
+            },
+            {
+                // 处理图片
+                test:/\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader:'url-loader',
+                options: {
+                    name: 'images/[name].[hash:7].[ext]'
+                }
             }
            
         ]

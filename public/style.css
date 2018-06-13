@@ -1,9 +1,55 @@
 /*! 版权所有，翻版必究 */
-.div {
-  border: 1px solid blue;
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
 }
-.div p {
-  color: aquamarine;
+.status {
+  margin-bottom: 10px;
+}
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+.square:focus {
+  outline: none;
+}
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 200px;
+}
+.game-info {
+  margin-left: 20px;
+}
+header {
+  margin-bottom: 20px;
+}
+header ul {
+  padding: 20px 0;
+}
+header ul li {
+  margin-left: 50px;
+  height: 25px;
+  line-height: 25px;
+}
+header ul li a {
+  color: #fff;
+  font-size: 18px;
 }
 * {
   box-sizing: border-box;
@@ -130,4 +176,11 @@ html {
 }
 .hide {
   display: none !important;
+}
+.clearFloat {
+  overflow: hidden;
+  clear: both;
+}
+.font-18 {
+  font-size: 18px;
 }

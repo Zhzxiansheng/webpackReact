@@ -1,5 +1,7 @@
 import React, { component } from 'react'
 
+import ComponentHeader from './header'
+
 
 class First extends React.Component{
     constructor(props){
@@ -12,9 +14,12 @@ class First extends React.Component{
     }
     render(){
         return(
-            <div className="firstDiv">
-                <h2 className="ac font-18" onClick={this.firstClick}>First Text and Click me</h2>
-            </div>
+            <main>
+                <ComponentHeader />
+                <div className="firstDiv">
+                    <h2 className="ac font-18" onClick={this.firstClick}>First Text and Click me</h2>
+                </div>
+            </main>
         )
     }
 }

@@ -1,8 +1,9 @@
 import React, { component } from 'react'
-import config from "./config.json"; //引入json
+import config from "../config.json"; //引入json
 
-import styles from './css/Greeter.css';
-import './css/greeter.less';
+import ComponentHeader from './header'
+import styles from '../css/Greeter.css';
+import '../css/greeter.less';
 // 写一个react组件
 // 这是定义了一个函数组件，下面用方法调用
 function Square(props) {
@@ -104,18 +105,21 @@ class Game extends React.Component {
         });
 
         return (
-            <div className={`${styles.greeter} game`}>
-                <div>
-                    <Board
-                        squares={current.squares}
-                        onClick={(i) => this.handleClick(i)}
-                    />
+            <main>
+                <ComponentHeader />
+                <div className={`${styles.greeter} game`}>
+                    <div>
+                        <Board
+                            squares={current.squares}
+                            onClick={(i) => this.handleClick(i)}
+                        />
+                    </div>
+                    <div className="game-info">
+                        <div>{status}</div>
+                        <ol>{moves}</ol>
+                    </div>
                 </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <ol>{moves}</ol>
-                </div>
-            </div>
+            </main>
         );
     }
 }
