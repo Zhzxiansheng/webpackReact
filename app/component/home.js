@@ -2,6 +2,7 @@ import React, { component } from 'react'
 
 import ComponentHeader from './header'
 
+
 class Home extends React.Component{
     render(){
         return(

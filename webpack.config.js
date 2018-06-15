@@ -2,20 +2,27 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-
 module.exports = {
-    entry: __dirname+ "/app/main.js", // 入口文件
+    entry: __dirname + "/app/main.js", // 入口文件
     output: { // 输出目录
         path:__dirname + "/public", //打包后的文件存放的地方
         filename:"bundle.js" //打包后输出的文件名，index.html 引入的就是这个
         // filename: "bundle-[hash].js"
     },
+    
     devServer:{
         contentBase: "./public", //本地服务器加载的页面所载的目录
         historyApiFallback: true, //不跳转
         inline: true, // 实时刷新
         hot: true
     },
+    // resolve: {
+
+    //     // directories where to look for modules
+    //     extensions: [".ts", ".tsx"],
+    //     // extensions that are used
+
+    // },
     module:{
         rules: [
             {
@@ -29,10 +36,11 @@ module.exports = {
                         ]
                     }
                 },
-                // exclude: /node_modules/,
-                // query: {
-                //     compact: false
-                // }
+            },
+            {
+                // 处理ts 的
+                test: /\.tsx?$/,
+                loader: "ts-loader",
             },
             {
                 // 处理CSS的
