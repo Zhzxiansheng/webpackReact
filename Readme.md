@@ -1,3 +1,6 @@
+##  对node 和 webpack 版本要求较高，低版本可能在执行命令时报错。注意升级webpack版本
+### 在Mac和 window 两种类型的电脑上在执行本地服务 npm run server 命令时可能会出现问题。window电脑在package.json 中的 server 命令后 删除 NODE_ENV=production &&
+
 > npm install
 
 编译
