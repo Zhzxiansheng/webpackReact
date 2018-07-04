@@ -13,8 +13,10 @@
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
     "save-dev": "^2.0.0",
     "webpack": "^4.12.0"
   },
@@ -32,6 +34,7 @@
     "less-loader": "^4.1.0",
     "postcss-loader": "^2.1.5",
     "react-transform-hmr": "^1.0.4",
+    "redux-devtools": "^3.4.1",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.1",
     "typescript": "^2.9.2",

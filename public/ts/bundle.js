@@ -307,20 +307,262 @@ function buildName(firstName, lastName) {
 }
 // buildName('1'); // error 应有 2 个参数，但获得 1 个。
 // buildName('1', '2', '3'); // error 应有 2 个参数，但获得 3 个。
-buildName('zhang', undefined); // 类型“undefined”的参数不能赋给类型“string”的参数。所以我在上面改了类型为 any
+// buildName('zhang', undefined); // 类型“undefined”的参数不能赋给类型“string”的参数。所以我在上面改了类型为 any
 // console.log(buildName('zhang', undefined));
 // 可选参数
 function buildName2(firstName, lastName) {
     return firstName + " - " + lastName;
 }
-buildName2('张');
-console.log('====================================');
-console.log(buildName2('张'));
-console.log('====================================');
+// buildName2('张');
+// console.log(buildName2('张')); // 张 -undefined
 // 默认参数
 function buildName3(firstName, lastName) {
-    if (lastName === void 0) { lastName = "壮"; }
+    if (lastName === void 0) { lastName = "三"; }
     return firstName + " - " + lastName;
 }
-buildName3("张");
-console.log(buildName3("张"));
+// buildName3("张");
+// console.log(buildName3("张")); // 张 -三
+(function (Color) {
+    Color[Color["Red"] = 0] = "Red";
+    Color[Color["Blue"] = 1] = "Blue";
+    Color[Color["Green"] = 2] = "Green";
+})(Color || (Color = {}));
+;
+var Status;
+(function (Status) {
+    Status[Status["Ready"] = 0] = "Ready";
+    Status[Status["End"] = 1] = "End";
+})(Status || (Status = {}));
+var color = Color.Red;
+// color = Status.End// 不同枚举类型之间是不兼容的
+// 高级类型
+// 联合类型
+function padLeft(value, padding) {
+    console.log(typeof (padding));
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === "string") {
+        return padding + value;
+    }
+    throw new Error("Expected string or number, got '" + padding + "'.");
+}
+function getSmallPet(item) {
+    return item;
+}
+var pet = getSmallPet(1);
+pet.layEggs; // okay  // 当一个函数联合两个接口的时候， 那么只有两个接口的公用部分
+// pet.swim();    // errors
+// 每一个成员访问都会报错
+// if (pet.swim) { //类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“swim”。
+//     pet.swim();//类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“swim”
+// }
+// else if (pet.fly) {类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“fly”
+//     pet.fly();类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“fly”
+// }
+// 这时候就用到了类型断言
+if (pet.swim) {
+    pet.swim();
+}
+else if (pet.fly) {
+    pet.fly();
+}
+// 自定义类型保护
+function isFish(pet) {
+    return pet.swim !== undefined;
+}
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    // pet.fly();
+}
+// typeof 类型保护  这种写法相当于上面这个padLeft方法的封装; 更加优秀
+function isNumber(x) {
+    return typeof x === "number";
+}
+function isString(x) {
+    return typeof x === "string";
+}
+function padLeft2(value, padding) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (isString(padding)) {
+        return padding + value;
+    }
+    throw new Error("Expected string or number, got '" + padding + "'.");
+}
+// instanceof 类型保护
+// instanceof的右侧要求是一个构造函数，TypeScript将细化为：
+// 1此构造函数的 prototype属性的类型，如果它的类型不为 any的话
+//2 构造签名所返回的类型的联合
+// 特殊类型 null undefined  当声明一个变量， 这个变量不会包含undefined null 可以用联合类型的方法明确包含他们
+var a = 'zhz'; //相当于 声明a 是字符串类型
+// a = null // error 不能将类型“null”分配给类型“string”。
+// a = undefined // error 不能将类型“undefined”分配给类型“string”。
+var s = "zhz";
+s = null; //ok
+// 可选参数和可选属性    这两者会默认添加上 |undefined
+function f(name, age) {
+    return name + age;
+}
+f('z', 1); //ok
+f('z', undefined); //ok  
+// f('z', null); //error   类型“null”的参数不能赋给类型“number | undefined”的参数。
+var C = /** @class */ (function () {
+    function C() {
+    }
+    return C;
+}());
+var cc = new C();
+// console.log(typeof(cc.name));
+cc.name = '123'; //ok
+function getName(n) {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+getName("zz"); //ok
+var UIElement = /** @class */ (function () {
+    function UIElement() {
+    }
+    UIElement.prototype.animate = function (dx, dy, easing) {
+        if (easing === "ease-in") {
+            // ...
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+            // error! should not pass null or undefined.
+        }
+    };
+    return UIElement;
+}());
+var button = new UIElement();
+button.animate(0, 0, "ease-in");
+function Shap(s) {
+    switch (s.kind) {
+        case "square": return s.size;
+        case "rectangle": return s.width * s.height;
+        case "circle": return s.radius;
+    }
+}
+// 多态的 this类型
+var BasicCalculator = /** @class */ (function () {
+    function BasicCalculator(value) {
+        if (value === void 0) { value = 0; }
+        this.value = value;
+    }
+    BasicCalculator.prototype.currentValue = function () {
+        return this.value;
+    };
+    BasicCalculator.prototype.add = function (operand) {
+        this.value += operand;
+        return this;
+    };
+    BasicCalculator.prototype.multiply = function (operand) {
+        this.value *= operand;
+        return this;
+    };
+    return BasicCalculator;
+}());
+var v = new BasicCalculator(2)
+    .multiply(5)
+    .add(1)
+    .currentValue();
+// console.log(v)// 11  先执行 BasicCalculator  this.value = 2; 再执行 multiply(5)  operand = 5  this.value = this.value * operand = 2*5    再执行 add this.value = 10 + 1 
+// 索引类型
+function pluck(o, names) {
+    return names.map(function (n) { return o[n]; });
+}
+var person = {
+    name: 'Jarid',
+    age: 35
+};
+var strings = pluck(person, ['name']); // ok, string[]
+// console.log(strings) //["Jarid"]
+// symbols
+var sym1 = Symbol();
+var sym2 = Symbol("key"); // 可选的字符串key
+var sym4 = Symbol("key");
+var sym3 = Symbol("key");
+var pets = '123456';
+function bian(obj) {
+    for (var i in obj) {
+        console.log(i);
+    }
+    for (var _i = 0, pets_1 = pets; _i < pets_1.length; _i++) {
+        var iterator = pets_1[_i];
+        console.log(iterator);
+    }
+}
+var lettersRegexp = /^[A-Za-z]+$/; // 只能是字母
+var numberRegexp = /^[0-9]+$/; // 只能是数字
+var LettersOnlyValidator = /** @class */ (function () {
+    function LettersOnlyValidator() {
+    }
+    LettersOnlyValidator.prototype.isAcceptable = function (s) {
+        return lettersRegexp.test(s);
+    };
+    return LettersOnlyValidator;
+}());
+var ZipCodeValidator = /** @class */ (function () {
+    function ZipCodeValidator() {
+    }
+    ZipCodeValidator.prototype.isAcceptable = function (s) {
+        return s.length === 5 && numberRegexp.test(s);
+    };
+    return ZipCodeValidator;
+}());
+// Some samples to try
+var strings2 = ["Hello", "98052", "101"];
+// Validators to use
+var validators = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+// Show whether each string passed each validator
+for (var _i = 0, strings2_1 = strings2; _i < strings2_1.length; _i++) {
+    var s_1 = strings2_1[_i];
+    for (var name_1 in validators) {
+        // console.log(validators[name])
+        var isMatch = validators[name_1].isAcceptable(s_1);
+        // console.log(isMatch)
+        // console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+    }
+}
+console.log(1);
+// import * as module from "./module"
+// let alertModule = new module.Alert("张",17);
+// console.log(alertModule);
+// alertModule.getTostring();
+define("module", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var numberRegexp = /^[0-9]+$/;
+    var ZipCodeValidator = /** @class */ (function () {
+        function ZipCodeValidator() {
+        }
+        ZipCodeValidator.prototype.isAcceptable = function (s) {
+            return s.length === 5 && numberRegexp.test(s);
+        };
+        return ZipCodeValidator;
+    }());
+    exports.ZipCodeValidator = ZipCodeValidator;
+    exports.mainValidator = ZipCodeValidator;
+    var Alert = /** @class */ (function () {
+        function Alert(name, age) {
+        }
+        ;
+        Alert.prototype.getTostring = function () {
+            console.log(this);
+        };
+        return Alert;
+    }());
+    exports.Alert = Alert;
+});

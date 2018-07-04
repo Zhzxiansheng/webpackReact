@@ -392,7 +392,7 @@ function buildName (firstName:string, lastName:any):string{
 // buildName('1'); // error 应有 2 个参数，但获得 1 个。
 // buildName('1', '2', '3'); // error 应有 2 个参数，但获得 3 个。
 
-buildName('zhang', undefined); // 类型“undefined”的参数不能赋给类型“string”的参数。所以我在上面改了类型为 any
+// buildName('zhang', undefined); // 类型“undefined”的参数不能赋给类型“string”的参数。所以我在上面改了类型为 any
 
 // console.log(buildName('zhang', undefined));
 
@@ -400,7 +400,7 @@ buildName('zhang', undefined); // 类型“undefined”的参数不能赋给类�
 function buildName2(firstName: string, lastName?: string){
     return firstName + " - " + lastName;
 }
-buildName2('张');
+// buildName2('张');
 
 // console.log(buildName2('张')); // 张 -undefined
 
@@ -409,5 +409,338 @@ buildName2('张');
 function buildName3(firstName: string, lastName="三") {
     return firstName + " - " + lastName;
 }
-buildName3("张");
+// buildName3("张");
 // console.log(buildName3("张")); // 张 -三
+
+enum Color { Red, Blue, Green };
+enum Status { Ready, End }
+let color = Color.Red;
+// color = Status.End// 不同枚举类型之间是不兼容的
+
+// 高级类型
+
+// 联合类型
+
+function padLeft(value: string, padding: number | string) {
+    console.log(typeof(padding))
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === "string") {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+// console.log(padLeft("Hello world", 4)); // "   hello world"  空格加hello world
+// console.log(padLeft("Hello world", true)); // 编译没有报错，但是运行报错了  Uncaught Error: Expected string or number, got 'true'.
+// 现在把padding 写成联合类型， 编译的时候如果类型不对就会报错  padding: number | string
+// console.log(padLeft("Hello world", true)); //类型“true”的参数不能赋给类型“string | number”的参数。
+
+interface Bird {
+    fly():any;
+    layEggs(): any;
+}
+
+interface Fish {
+    swim(): any;
+    layEggs(): any;
+}
+
+function getSmallPet(item:any): Fish | Bird {
+    return item
+}
+
+let pet = getSmallPet(1);
+pet.layEggs; // okay  // 当一个函数联合两个接口的时候， 那么只有两个接口的公用部分
+// pet.swim();    // errors
+// 每一个成员访问都会报错
+// if (pet.swim) { //类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“swim”。
+//     pet.swim();//类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“swim”
+// }
+// else if (pet.fly) {类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“fly”
+//     pet.fly();类型“Bird | Fish”上不存在属性“swim”。类型“Bird”上不存在属性“fly”
+// }
+
+// 这时候就用到了类型断言
+if ((<Fish>pet).swim) {
+    (<Fish>pet).swim();
+}
+else if ((<Bird>pet).fly){
+    (<Bird>pet).fly();
+}
+
+// 自定义类型保护
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (<Fish>pet).swim !== undefined;
+}
+
+if (isFish(pet)) {
+    pet.swim();
+}else {
+    // pet.fly();
+}
+
+// typeof 类型保护  这种写法相当于上面这个padLeft方法的封装; 更加优秀
+function isNumber(x: any): x is number {
+    return typeof x === "number";
+}
+
+function isString(x: any): x is string {
+    return typeof x === "string";
+}
+
+function padLeft2(value: string, padding: string | number) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (isString(padding)) {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+// instanceof 类型保护
+// instanceof的右侧要求是一个构造函数，TypeScript将细化为：
+
+// 1此构造函数的 prototype属性的类型，如果它的类型不为 any的话
+//2 构造签名所返回的类型的联合
+
+
+// 特殊类型 null undefined  当声明一个变量， 这个变量不会包含undefined null 可以用联合类型的方法明确包含他们
+
+let a = 'zhz'; //相当于 声明a 是字符串类型
+// a = null // error 不能将类型“null”分配给类型“string”。
+// a = undefined // error 不能将类型“undefined”分配给类型“string”。
+
+let s: string | null = "zhz";
+s = null; //ok
+
+// 可选参数和可选属性    这两者会默认添加上 |undefined
+
+function f(name:string,age?:number){
+    return name + age
+}
+f('z',1); //ok
+f('z',undefined); //ok  
+
+// f('z', null); //error   类型“null”的参数不能赋给类型“number | undefined”的参数。
+
+class C{
+    name!: string;  // 明确的赋值断言
+    age?:number
+}
+
+let cc = new C();
+// console.log(typeof(cc.name));
+cc.name = '123'; //ok
+// cc.age = 1; //ok
+// cc.age = undefined; //ok
+// cc.age = null  // error
+// cc.name = undefined  // error
+
+
+// 类型别名  type 关键字
+
+type Name = string ;  // 声明一个类型名称Name ;类型为 string
+type NameResolver = () => string ; // 声明一个箭头函数 NameResolver 用es6 编译思想 相当于是return string
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+
+getName("zz"); //ok
+// getName(1); //error
+
+//同接口一样，类型别名也可以是泛型
+
+type Alias = { num: number }
+interface Interface {
+    num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+
+// 字符串字面量类型
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === "ease-in") {
+            // ...
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+            // error! should not pass null or undefined.
+        }
+    }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+// button.animate(0, 0, "uneasy"); // error: "uneasy" is not allowed here
+
+// 数字字面量类型
+
+
+// 可辨识联合
+
+/*
+    可以合并单例类型，联合类型，类型保护和类型别名来创建一个叫做 可辨识联合的高级模式，它也称做 标签联合或 代数数据类型。 可辨识联合在函数式编程很有用处
+
+    1具有普通的单例类型属性— 可辨识的特征。
+    2一个类型别名包含了那些类型的联合— 联合。
+    3此属性上的类型保护。
+*/
+
+interface Square {
+    kind: "square";
+    size: number;
+}
+interface Rectangle {
+    kind: "rectangle";
+    width: number;
+    height: number;
+}
+interface Circle {
+    kind: "circle";
+    radius: number;
+}
+
+// kind 就是三个接口的可辨识特征或标签
+
+type Shape2 = Square | Rectangle | Circle;
+
+function Shap (s: Shape2){
+    switch (s.kind){
+        case "square" : return s.size;
+        case "rectangle" : return s.width* s.height;
+        case "circle" : return s.radius;
+    }
+}
+
+// 多态的 this类型
+class BasicCalculator {
+    public constructor(protected value: number = 0) { }
+    public currentValue(): number {
+        return this.value;
+    }
+    public add(operand: number): this {
+        this.value += operand;
+        return this;
+    }
+    public multiply(operand: number): this {
+        this.value *= operand;
+        return this;
+    }
+    // ... other operations go here ...
+}
+
+let v = new BasicCalculator(2)
+    .multiply(5)
+    .add(1)
+    .currentValue();
+// console.log(v)// 11  先执行 BasicCalculator  this.value = 2; 再执行 multiply(5)  operand = 5  this.value = this.value * operand = 2*5    再执行 add this.value = 10 + 1 
+
+// 索引类型
+
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+    return names.map(n => o[n]);
+}
+
+interface Personsuoyin {
+    name: string;
+    age: number;
+}
+let person: Personsuoyin = {
+    name: 'Jarid',
+    age: 35
+};
+let strings: string[] = pluck(person, ['name']); // ok, string[]
+// console.log(strings) //["Jarid"]
+
+// symbols
+
+let sym1 = Symbol();
+let sym2 = Symbol("key"); // 可选的字符串key
+
+let sym4 = Symbol("key");
+let sym3 = Symbol("key");
+
+// console.log(sym4 === sym3); // false, symbols是唯一的
+
+
+interface obj{
+    name:string,
+    name2:string
+}
+var pets = '123456'
+function bian(obj:obj){
+    for(const i in obj){
+        console.log(i);
+    }
+    for (const iterator of pets) {
+        console.log(iterator);
+        
+    }
+}
+
+// bian({ name: "z", name2:"gh"})
+
+// 模块
+// import { ZipCodeValidator } from "./module";
+// console.log(ZipCodeValidator);
+
+// let myValidator = new ZipCodeValidator();
+// console.log(myValidator);
+
+// 命名空间 其实是 -- 内部模块
+
+interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+
+let lettersRegexp = /^[A-Za-z]+$/; // 只能是字母
+let numberRegexp = /^[0-9]+$/;  // 只能是数字
+
+class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return lettersRegexp.test(s);
+    }
+}
+
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+
+// Some samples to try
+let strings2 = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: StringValidator; } = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings2) {
+    for (let name in validators) {
+        // console.log(validators[name])
+        let isMatch = validators[name].isAcceptable(s);
+        // console.log(isMatch)
+        // console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+    }
+}
+
+// import * as module from "./module"
+// let alertModule = new module.Alert("张",17);
+// console.log(alertModule);
+// alertModule.getTostring();
