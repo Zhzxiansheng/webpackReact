@@ -1,0 +1,50 @@
+.login-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #005C97;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .login-content{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.5);
+        min-width: 400px;
+        min-height: 250px;
+        border-radius: 5px;
+        color: #fff;
+        .login-p:first-of-type{
+            margin-top: 30px;
+        }
+        .login-p{
+            height: 65px;
+            line-height:65px;
+            font-size: 18px;
+            input{
+                width: 200px;
+                height: 30px;
+                outline: none;
+                background: rgba(0,0,0,0.1);
+                color: #fff;
+                border-radius: 2px;
+                border: 1px solid #eee;
+                text-indent: 1em;
+            }
+            .password{
+                margin-left: 20px;
+            }
+            .loginBtn{
+                width: 120px;
+                height: 35px;
+                color: #fff;
+                outline: none;
+                background: #005C97;
+                border: none;
+            }
+        }
+    }
+}

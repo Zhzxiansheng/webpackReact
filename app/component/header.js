@@ -10,16 +10,24 @@ import {
     Link
 } from 'react-router-dom'
 
-import './css/header.less'
+import '../css/header.less'
 
 class ComponentHeader extends Component {
 
     constructor() {
         super();
         this.state = {
-            miniHeader: false
+            miniHeader: false,
+            username:'默认用户'
         }
-    };
+    }
+
+    componentWillMount(){
+        var username = localStorage.getItem('username');
+        this.setState({
+            username: username
+        })
+    }
     switchHeader() {
         this.setState({
             miniHeader: !this.state.miniHeader
@@ -46,9 +54,11 @@ class ComponentHeader extends Component {
                 onClick={this.switchHeader.bind(this)}
                 style={styleComponentHeader.header}>
                 <ul className="clearFloat">
-                    <li className="fl"><Link to='/'>首页</Link></li>
+                    <li className="fl"><Link to='/Home'>欢迎页</Link></li>
                     <li className="fl"><Link to='/First'>First</Link></li>
                     <li className="fl"><Link to='/Greeter'>Greeter</Link></li>
+                    <li className="fl fr signOut"><Link to='/'>退出登录</Link></li>
+                    <li className="fl fr  signOut">{this.state.username}</li>
                 </ul>
             </header>
         );

@@ -2,10 +2,11 @@ import React from 'react'
 // import { Router, Route, Link } from 'react-router'
 import  hashHistory  from 'react-router'
 
-import ComponentHeader from './header'
-import Home from './home'
-import First from './first'
-import Greeter from './Greeter'
+import ComponentHeader from './component/header'
+import Login from './component/login'
+import Home from './component/home'
+import First from './component/first'
+import Greeter from './component/Greeter'
 
 import {
     BrowserRouter as Router,
@@ -18,12 +19,12 @@ class APP extends React.Component{
         return(
             <Router>
                 <div>
-                    <ComponentHeader />
+                    <Route component={Login} exact path="/"></Route>
+                    {/* <ComponentHeader /> */}
                     <main>
-                        <Route component={Home} exact path="/">
-                        </Route>
+                        <Route component={Home} path="/Home" ></Route>
                         <Route component={First} path="/first" ></Route>
-                        <Route path="/greeter" component={Greeter} ></Route>
+                        <Route component={Greeter} path="/greeter" ></Route>
                     </main>
                 </div>
             </Router> 
