@@ -740,7 +740,3 @@ for (let s of strings2) {
     }
 }
 
-// import * as module from "./module"
-// let alertModule = new module.Alert("张",17);
-// console.log(alertModule);
-// alertModule.getTostring();

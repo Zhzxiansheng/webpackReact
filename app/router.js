@@ -7,6 +7,7 @@ import Login from './component/login'
 import Home from './component/home'
 import First from './component/first'
 import Greeter from './component/Greeter'
+import JSX from './component/jsx.jsx'
 
 import {
     BrowserRouter as Router,
@@ -25,6 +26,7 @@ class APP extends React.Component{
                         <Route component={Home} path="/Home" ></Route>
                         <Route component={First} path="/first" ></Route>
                         <Route component={Greeter} path="/greeter" ></Route>
+                        <Route component={JSX} path="/Jsx" ></Route>
                     </main>
                 </div>
             </Router> 

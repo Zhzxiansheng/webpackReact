@@ -2,26 +2,25 @@ import React, { component } from 'react'
 
 import ComponentHeader from './header'
 
-
-class First extends React.Component{
-    constructor(props){
+class JSX extends React.Component {
+    constructor(props) {
         super(props);
         this.firstClick = this.firstClick.bind(this);
     }
 
-    firstClick(){
+    firstClick() {
         console.log(this);
     }
-    render(){
-        return(
+    render() {
+        return (
             <main>
                 <ComponentHeader />
                 <div className="firstDiv">
-                    <h2 className="ac font-18" onClick={this.firstClick}>First Text and Click me</h2>
+                    <h2 className="ac font-18" onClick={this.firstClick}>JSX 页面</h2>
                 </div>
             </main>
         )
     }
 }
 
-export default First
+export default JSX

@@ -1,6 +1,10 @@
 ##  对node 和 webpack 版本要求较高，低版本可能在执行命令时报错。注意升级webpack版本
 ### 在Mac和 window 两种类型的电脑上在执行本地服务 npm run server 命令时可能会出现问题。window电脑在package.json 中的 server 命令后 删除 NODE_ENV=production &&
 
+
+#### 在public 文件夹下生成的是打包好的项目
+
+> 没有做到自动检测ts 文件改变自编译，需要在控制台执行 tsc 来编译ts 文件
 > npm install
 
 编译

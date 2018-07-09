@@ -7,14 +7,9 @@ class ZipCodeValidator implements StringValidator {
         return s.length === 5 && numberRegexp.test(s);
     }
 }
-class Alert{
-    constructor(name: string,age:number){};
-    getTostring(){
-        console.log(this)
-    }
-}
 
 
-export { ZipCodeValidator, Alert };
+
+export { ZipCodeValidator };
 export { ZipCodeValidator as mainValidator };
 

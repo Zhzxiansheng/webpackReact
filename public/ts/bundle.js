@@ -536,33 +536,3 @@ for (var _i = 0, strings2_1 = strings2; _i < strings2_1.length; _i++) {
         // console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
     }
 }
-console.log(1);
-// import * as module from "./module"
-// let alertModule = new module.Alert("张",17);
-// console.log(alertModule);
-// alertModule.getTostring();
-define("module", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var numberRegexp = /^[0-9]+$/;
-    var ZipCodeValidator = /** @class */ (function () {
-        function ZipCodeValidator() {
-        }
-        ZipCodeValidator.prototype.isAcceptable = function (s) {
-            return s.length === 5 && numberRegexp.test(s);
-        };
-        return ZipCodeValidator;
-    }());
-    exports.ZipCodeValidator = ZipCodeValidator;
-    exports.mainValidator = ZipCodeValidator;
-    var Alert = /** @class */ (function () {
-        function Alert(name, age) {
-        }
-        ;
-        Alert.prototype.getTostring = function () {
-            console.log(this);
-        };
-        return Alert;
-    }());
-    exports.Alert = Alert;
-});

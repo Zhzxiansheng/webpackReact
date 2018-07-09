@@ -14,8 +14,8 @@ class Login extends React.Component{
     }
     handleClick(){
         localStorage.setItem("username", this.refs.username.value);
-        if (this.refs.username.value != null || this.refs.username.value != undefined){
-            window.location.href = location.hash + '/Home'
+        if (this.refs.username.value){
+            window.location.href = location.hash + '/Home#Home'
         }
         
     }

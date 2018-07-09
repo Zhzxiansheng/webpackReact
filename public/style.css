@@ -1,113 +1,4 @@
 /*! 版权所有，翻版必究 */
-header {
-  margin-bottom: 20px;
-}
-header ul {
-  padding: 20px 0;
-}
-header ul li {
-  margin-left: 50px;
-  height: 25px;
-  line-height: 25px;
-}
-header ul li .signOut {
-  margin-right: 40px;
-  font-size: 14px;
-}
-header ul li a {
-  color: #fff;
-  font-size: 18px;
-}
-.login-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #005C97;
-  /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #363795, #005C97);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-.login-container .login-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  min-width: 400px;
-  min-height: 250px;
-  border-radius: 5px;
-  color: #fff;
-}
-.login-container .login-content .login-p:first-of-type {
-  margin-top: 30px;
-}
-.login-container .login-content .login-p {
-  height: 65px;
-  line-height: 65px;
-  font-size: 18px;
-}
-.login-container .login-content .login-p input {
-  width: 200px;
-  height: 30px;
-  outline: none;
-  background: rgba(0, 0, 0, 0.1);
-  color: #fff;
-  border-radius: 2px;
-  border: 1px solid #eee;
-  text-indent: 1em;
-}
-.login-container .login-content .login-p .password {
-  margin-left: 20px;
-}
-.login-container .login-content .login-p .loginBtn {
-  width: 120px;
-  height: 35px;
-  color: #fff;
-  outline: none;
-  background: #005C97;
-  border: none;
-}
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-.status {
-  margin-bottom: 10px;
-}
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
-}
-.square:focus {
-  outline: none;
-}
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-.game {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 200px;
-}
-.game-info {
-  margin-left: 20px;
-}
 * {
   box-sizing: border-box;
 }
@@ -240,4 +131,116 @@ html {
 }
 .font-18 {
   font-size: 18px;
+}
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.status {
+  margin-bottom: 10px;
+}
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+.square:focus {
+  outline: none;
+}
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 200px;
+}
+.game-info {
+  margin-left: 20px;
+}
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #005C97;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #363795, #005C97);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.login-container .login-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  min-width: 400px;
+  min-height: 250px;
+  border-radius: 5px;
+  color: #fff;
+}
+.login-container .login-content .login-p:first-of-type {
+  margin-top: 30px;
+}
+.login-container .login-content .login-p {
+  height: 65px;
+  line-height: 65px;
+  font-size: 18px;
+}
+.login-container .login-content .login-p input {
+  width: 200px;
+  height: 30px;
+  outline: none;
+  background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border-radius: 2px;
+  border: 1px solid #eee;
+  text-indent: 1em;
+}
+.login-container .login-content .login-p .password {
+  margin-left: 20px;
+}
+.login-container .login-content .login-p .loginBtn {
+  width: 120px;
+  height: 35px;
+  color: #fff;
+  outline: none;
+  background: #005C97;
+  border: none;
+}
+header {
+  margin-bottom: 20px;
+}
+header ul {
+  padding: 20px 0;
+}
+header ul li {
+  margin-left: 50px;
+  height: 25px;
+  line-height: 25px;
+}
+header ul li .signOut {
+  margin-right: 40px;
+  font-size: 14px;
+}
+header ul li a {
+  color: #fff;
+  font-size: 18px;
+}
+.active {
+  color: #1E90FF;
 }
